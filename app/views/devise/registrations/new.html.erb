@@ -1,0 +1,62 @@
+<h2>Sign up</h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
+
+  
+<div class="row">
+  <form class="col s12">  
+
+   <div class="row">
+      <div class="input-field col s12">
+        <div class="field">
+          <%# <input id="email" type="email" class="validate"> %>
+          <%= f.label :nickname %><br />
+          <%= f.text_field :nickname, autofocus: true %>
+          <%# <label for="email" data-error="wrong" data-success="right">Email</label> %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12">
+        <div class="field">
+          <%# <input id="email" type="email" class="validate"> %>
+          <%= f.label :email %><br />
+          <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+          <%# <label for="email" data-error="wrong" data-success="right">Email</label> %>
+        </div>
+      </div>
+    </div>
+
+  <div class="field">
+  <%# <%= f.password_field :password, autocomplete: "new-password" %> 
+     <div class="row">
+        <div class="input-field col s12">
+          <%= f.label :password %>
+          <% if @minimum_password_length %>
+          <em>(<%= @minimum_password_length %> characters minimum)</em>
+          <% end %><br />
+          <%= f.password_field :password, autocomplete: "new-password" %>        
+        </div>
+      </div>
+  </div>
+
+  <div class="field">
+    <div class="row">
+      <div class="input-field col s12">
+        <div class="field">
+          <%= f.label :password_confirmation %><br />
+          <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+        </div>        
+      </div>
+    </div>
+  </div>
+
+  <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+    <i class="material-icons right">send</i>
+  </button>
+
+<% end %>
+
+<%= render "devise/shared/links" %>

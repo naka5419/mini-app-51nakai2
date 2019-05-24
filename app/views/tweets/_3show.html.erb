@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%# <title>Sample</title>
+  <style type="text/css" href="./style.css"></style> %>
+ <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
+  <script
+  src="https://code.jquery.com/jquery-3.4.0.js"
+  integrity="sha256-DYZMCC8HTC+QDr5QNaIcfR7VSPtcISykd+6eSmBW5qo="
+  crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+<nav class="grey darken-1">
+  <div class="nav-wrapper">
+    <a href="#" class="brand-logo"></a>
+    <% if user_signed_in? %>
+      <span><%= current_user.nickname %>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li>
+            <a href="/users/<%= current_user.id %>">マイページ</a></li>
+          <li>
+            <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+          </li>
+          <li>
+          <a href="/tweets/new">投稿する</a>
+          </li>
+        </ul>
+      </span>
+
+    <% else %>
+        <ul id="nav-mobile" class="right hide-on-med-and-down"> 
+          <li>
+            <%= link_to "ログイン", new_user_session_path, :class => 'post' %>
+          </li>
+          <li>
+            <%= link_to "新規登録", new_user_registration_path, :class => 'post' %>
+          </li>        
+        </ul>
+    <% end %>         
+  </div>
+</nav>
+
+
+<h3>Blog</h3>
+
+   <%# <% if user_signed_in? && current_user.id == @tweet.user_id %> 
+<%# <div class="content_post" style="background-image: url(<%= ＠tweet.image %>
+<div class="more"> 
+  <ul class="more_list">
+    <div class="row">
+      <div class="col s12 m8">
+        <div class="card grey darken-1">
+          <%# <%= @tweet.image? %> 
+            <div class="card-image">
+              <img src="<%= @tweet.image %>">              
+                <div class="card-content white-text">
+                  <span class="card-title">コメント</span>
+                </div>
+            </div>
+            <div class="card-content">
+              <%= simple_format(@tweet.text) %>
+                <span class="name">
+                  <a href="/users/<%= @tweet.user_id %>">
+                    <span>投稿者<%= @tweet.user.nickname %></span>      
+                  </a>
+                </span>
+            </div>
+            <div class="card-action">
+                <%# <%= link_to '詳細', "/tweets/#{tweet.id}", method: :get %> 
+              <% if user_signed_in? && current_user.id == @tweet.user_id %>          
+                <%= link_to '編集', "/tweets/#{@tweet.id}/edit", method: :get %>
+                <%= link_to '削除', "/tweets/#{@tweet.id}", method: :delete %>
+              <% end %>
+            </div>
+            <%# <div class="card-reveal">
+              <span class="card-title grey-text text-darken-4"><i class="material-icons right">close</i>コメント一覧</span>               
+                  <%# <div class="comments">   
+                  <h4>＜コメント一覧＞</h4> %>
+                <% if @comments %>
+                  <% @comments.each do |comment| %>
+                    <p>
+                      <strong><%= link_to comment.user.nickname, "/users/#{comment.user_id}" %>：</strong>
+                        <%= comment.text %>
+                    </p>
+                  <% end %>
+                <% end %>
+            </div> %>
+        </div>
+      </div>
+    </div>  
+  </ul> 
+</div>
+
+ <%# <div class="container">  %>
+
+  <div class="row">
+    <form class="col s12">
+      <div class="row">
+        <div class="input-field col s12">
+          <% if current_user %>
+            <%= form_tag("/tweets/#{@tweet.id}/comments", method: :post) do %> 
+            <%# <%= form_for [@product, @review] do |f| %> 
+            <%# <%= form_for [@tweet, @comment] do |f| %> 
+            <%# <%= form_for :tweets, :comments, local: true, url: {action: 'create'} do |f| %>
+              <textarea id="textarea1" class="materialize-textarea" cols="30" name="text" placeholder="コメントする" rows="2"></textarea>
+              <button class="btn aves-effect waves-light" type="submit" name="action">SENT
+              </button>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </form>
+  </div>
+
+<%# <%= paginate(@tweets) %> 
+
+<script type="text/javascript" src="./app.js"></script>
+</body>
+</html>
+
